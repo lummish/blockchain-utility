@@ -146,7 +146,7 @@ polyfillChartData = function(chartData,interval){
 }
 
 
-var parseToPairs = function(interval) {
+var parseToPairs = function(interval, callback) {
     return function(err, response, body) {
         if (err) {
             console.log(err);
@@ -168,11 +168,11 @@ var parseToPairs = function(interval) {
 
         console.log(pairs);
 
-        return pairs;
+        return callback(pairs);
     }
 }
 
-exports.historicPrice = function(coin, currency, period) { //returns historic price data as an array of time price pair objects
+exports.historicPrice = function(coin, currency, period, callback) { //returns historic price data as an array of time price pair objects
     var coin = coin,
         currency = currency;
 
@@ -211,18 +211,6 @@ exports.historicPrice = function(coin, currency, period) { //returns historic pr
         qs: parameters
     }
 
-    return request(options, parseToPairs(interval_in_seconds)); //interval is 2 minutes in seconds
+    return request(options, parseToPairs(interval_in_seconds, callback)); //interval is 2 minutes in seconds
 };
 
-exports.renderPriceChart = function(time_price_pairs) {
-    var vis = d3.select('#visualisation'),
-        WEDTH = 1000,
-        HEIGHT = 500,
-        MARGINS = {
-            top: 20,
-            right: 20,
-            bottom: 20,
-            left: 50
-        }
-
-}

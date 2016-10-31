@@ -17,13 +17,15 @@ app.get('/', function(req, res) {
     res.render('index');
 });
 
-app.get('/market-price', function(req, res) {      
-    res.render('market-price', {timePrices: market.historicPrice('BTC', 'USD', 'day')}, function(err, html) {
-        if (err) {
-            console.log(err);
-        }
-        res.send(html);
-    });
+app.get('/market-price', function(req, res) {
+    market.historicPrice('BTC', 'USD', 'day', function (time_price_pairs) {
+        res.render('market-price', {timePrices: time_price_pairs}, function(err, html) {
+            if (err) {
+                console.log(err);
+            }
+            res.send(html);
+        });
+    });       
 });
 
 app.listen(process.env.PORT || 3000, function() {
