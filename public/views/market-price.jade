@@ -1,0 +1,17 @@
+head
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+body
+    div(class="container")
+        div(class="btn-toolbar", role="toolbar", aria-label="ticker-settings")
+            div(class="btn-group", role="group", aria-label="time-period")
+                button(type="button", class="btn btn-default") 1 D
+                button(type="button", class="btn btn-default") 7 D
+                button(type="button", class="btn btn-default") 1 M
+                button(type="button", class="btn btn-default") 1 Y
+            div(class="btn-group", role="group", aria-label="currency")
+                button(type="button", class="btn btn-default") USD
+                button(type="button", class="btn btn-default") EUR
+                button(type="button", class="btn btn-default") GBP
+                button(type="button", class="btn btn-default") CAD
+                button(type="button", class="btn btn-default") JPY
+script(src="market-price.js")

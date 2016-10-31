@@ -1,4 +1,5 @@
-var request = require('request');
+var request = require('request'),
+    d3 = require('d3');
 
 var parameters = {
     timespan: '1weeks',
@@ -160,10 +161,12 @@ var parseToPairs = function(interval) {
 
         var pairs = filled_data.map(function (time_datum) {
             var pair = {};
-            pair['time'] = time_datum['time'];
+            pair['time'] = new Date(time_datum['time']);
             pair['price'] = time_datum['close'];
             return pair;
         });
+
+        console.log(pairs);
 
         return pairs;
     }
@@ -176,11 +179,23 @@ exports.historicPrice = function(coin, currency, period) { //returns historic pr
     if (period == 'day') { //daily
         var interval = 2, //max resolution for day period
             interval_in_seconds = 120,
-            lim = 1000,
+            lim = 720, //intervals in one day (1440 minutes)
             api_function = 'histominute/';
     } else if (period == 'week') { //weekly
-        //need interval info
-        return;
+        var interval = 12, 
+            interval_in_seconds = 60 * 12,
+            lim = 840, //intevals in one week (10080 minutes)
+            api_function = 'histominute';
+    } else if (period == 'month') {
+        var interval = 1, 
+            interval_in_seconds = 60 * 60,
+            lim = 720,
+            api_function = 'histohour';
+    } else {
+        var interval = 10,
+            interval_in_seconds = 60 * 60 * 10,
+            lim = 876,
+            api_function = 'histohour';
     }
 
     var parameters = {
@@ -199,3 +214,15 @@ exports.historicPrice = function(coin, currency, period) { //returns historic pr
     return request(options, parseToPairs(interval_in_seconds)); //interval is 2 minutes in seconds
 };
 
+exports.renderPriceChart = function(time_price_pairs) {
+    var vis = d3.select('#visualisation'),
+        WEDTH = 1000,
+        HEIGHT = 500,
+        MARGINS = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 50
+        }
+
+}
