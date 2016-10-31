@@ -1,22 +1,30 @@
 head
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
     script(src="http://d3js.org/d3.v3.min.js", charset="utf-8")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
 body
     div(class="container")
-        div(class="btn-toolbar", role="toolbar", aria-label="ticker-settings")
-            div(class="btn-group", role="group", aria-label="time-period")
-                button(type="button", class="btn btn-default") 1 D
-                button(type="button", class="btn btn-default") 7 D
-                button(type="button", class="btn btn-default") 1 M
-                button(type="button", class="btn btn-default") 1 Y
-            div(class="btn-group", role="group", aria-label="currency")
-                button(type="button", class="btn btn-default") USD
-                button(type="button", class="btn btn-default") EUR
-                button(type="button", class="btn btn-default") GBP
-                button(type="button", class="btn btn-default") CAD
-                button(type="button", class="btn btn-default") JPY
-        div(class="jumbotron")
-            svg(id="visualisation", width="1000", height="500")
+        form(action="POST", role="form")
+            div(class="btn-toolbar", role="toolbar", aria-label="ticker-settings")
+                div(class="btn-group", data-toggle="buttons", role="group", aria-label="time-period")
+                    label(class="btn btn-primary active") 1D
+                        input(type="radio", name="options", id="option", value="day", autocomplete="off", checked) 
+                    label(class="btn btn-primary disabled") 1W
+                        input(type="radio", name="options", id="option", value="week", autocomplete="off") 
+                    label(class="btn btn-primary disabled") 1M
+                        input(type="radio", name="options", id="option", value="month", autocomplete="off") 
+                    label(class="btn btn-primary disabled") 1Y
+                        input(type="radio", name="options", id="option", value="year", autocomplete="off") 
+                div(class="btn-group", data-toggle="buttons", role="group", aria-label="currency")
+                    label(class="btn btn-primary active") USD
+                        input(type="radio", name="options", id="option", value="USD", autocomplete="off", checked) 
+                    label(class="btn btn-primary") CAD
+                        input(type="radio", name="options", id="option", value="CAD", autocomplete="off") 
+                    label(class="btn btn-primary") EUR
+                        input(type="radio", name="options", id="option", value="EUR", autocomplete="off") 
+                    label(class="btn btn-primary") GBP
+                        input(type="radio", name="options", id="option", value="GBP", autocomplete="off") 
+                svg(id="visualisation", width="1000", height="500")
 script(type='text/javascript').
     var time_price_pairs =!{JSON.stringify(timePrices)};
 script(src="market-price.js")
