@@ -166,8 +166,6 @@ var parseToPairs = function(interval, callback) {
             return pair;
         });
 
-        console.log(pairs);
-
         return callback(pairs);
     }
 }
@@ -213,4 +211,30 @@ exports.historicPrice = function(coin, currency, period, callback) { //returns h
 
     return request(options, parseToPairs(interval_in_seconds, callback)); //interval is 2 minutes in seconds
 };
+
+exports.exchangeRates = function(currency_from, current_rates, callback) {
+    if (Object.keys(current_rates).length === 0) {
+        var parameters = {
+            base: currency_from
+        };
+
+        var options = {
+            url: 'http://api.fixer.io/latest',
+            qs: parameters
+        };
+
+        return request(options, function(err, res, body) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            console.log("Get response: " + res.statusCode);
+            var body = JSON.parse(body);
+            return callback(body);
+        });    
+    } else {
+        return callback(current_rates);
+    }
+}
 

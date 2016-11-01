@@ -21,14 +21,16 @@ app.get('/', function(req, res) {
 });
 
 app.get('/market-price', function(req, res) {
-    market.historicPrice('BTC', 'USD', 'day', function (time_price_pairs) {
-        res.render('market-price', {timePrices: time_price_pairs}, function(err, html) {
-            if (err) {
-                console.log(err);
-            }
-            res.send(html);
-        });
-    });       
+    market.exchangeRates('USD', {}, function(rates) {       
+        market.historicPrice('BTC', 'USD', 'day', function (time_price_pairs) {
+            res.render('market-price', {timePrices: time_price_pairs, rates: rates}, function(err, html) {
+                if (err) {
+                    console.log(err);
+                }
+                res.send(html);
+            });
+        });       
+    });
 });
 
 app.post('/market-price', function(req, res) {

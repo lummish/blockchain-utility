@@ -7,24 +7,29 @@ body
         form(action="POST", role="form")
             div(class="btn-toolbar", role="toolbar", aria-label="ticker-settings")
                 div(class="btn-group", data-toggle="buttons", role="group", aria-label="time-period")
-                    label(class="btn btn-primary active") 1D
-                        input(type="radio", name="options", id="option", value="day", autocomplete="off", checked) 
-                    label(class="btn btn-primary disabled") 1W
-                        input(type="radio", name="options", id="option", value="week", autocomplete="off") 
-                    label(class="btn btn-primary disabled") 1M
-                        input(type="radio", name="options", id="option", value="month", autocomplete="off") 
-                    label(class="btn btn-primary disabled") 1Y
-                        input(type="radio", name="options", id="option", value="year", autocomplete="off") 
+                    label(class="btn btn-primary active time") 1D
+                        input(class="time", type="radio", name="options", id="option", value="day", autocomplete="off", checked) 
+                    label(class="btn btn-primary disabled time") 1W
+                        input(class="time", type="radio", name="options", id="option", value="week", autocomplete="off") 
+                    label(class="btn btn-primary disabled time") 1M
+                        input(class="time", type="radio", name="options", id="option", value="month", autocomplete="off") 
+                    label(class="btn btn-primary disabled time") 1Y
+                        input(class="time", type="radio", name="options", id="option", value="year", autocomplete="off") 
                 div(class="btn-group", data-toggle="buttons", role="group", aria-label="currency")
                     label(class="btn btn-primary active") USD
-                        input(type="radio", name="options", id="option", value="USD", autocomplete="off", checked) 
+                        input(class="currency", type="radio", name="options", id="option", value="USD", autocomplete="off", checked) 
                     label(class="btn btn-primary") CAD
-                        input(type="radio", name="options", id="option", value="CAD", autocomplete="off") 
+                        input(class="currency", type="radio", name="options", id="option", value="CAD", autocomplete="off") 
                     label(class="btn btn-primary") EUR
-                        input(type="radio", name="options", id="option", value="EUR", autocomplete="off") 
+                        input(class="currency", type="radio", name="options", id="option", value="EUR", autocomplete="off") 
                     label(class="btn btn-primary") GBP
-                        input(type="radio", name="options", id="option", value="GBP", autocomplete="off") 
+                        input(class="currency", type="radio", name="options", id="option", value="GBP", autocomplete="off") 
                 svg(id="visualisation", width="1000", height="500")
 script(type='text/javascript').
     var time_price_pairs =!{JSON.stringify(timePrices)};
+    var exchange_rates_obj = !{JSON.stringify(rates)};
+    console.log(exchange_rates_obj);
+    var rates = exchange_rates_obj['rates'];
+    rates['USD'] = 1.0; //initialize USD value;
+    console.log(rates);
 script(src="market-price.js")

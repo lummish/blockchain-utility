@@ -1,4 +1,12 @@
-var renderGraph = function (time_price_pairs) { 
+var convertRates = function (from_currency, to_currency, rates) {
+    var conversion_factor = rates[from_currency] / rates[to_currency];
+    for (var currency in rates) {
+        rates[currency] = rates[currency] * conversion_factor;
+    }
+    return rates;
+}
+
+var renderGraph = function (time_price_pairs, disabled, update_data) {     
     d3.selectAll("svg > *").remove();
     
     var vis = d3.select('#visualisation'),
@@ -47,15 +55,16 @@ var renderGraph = function (time_price_pairs) {
       .attr('stroke-width', 2)
       .attr('fill', 'none');
 
-    setTimeout(function() {
-        $('.btn.btn-primary.disabled').toggleClass('disabled');
-    }, 10000);
+    if (update_data) {
+        setTimeout(function(disabled) {
+            $('.btn.btn-primary.disabled').toggleClass('disabled');
+        }, 10000);
+     }
 }
 
-renderGraph(time_price_pairs);
-
-$('input[type=radio]:not(:checked)').on('change', function() {
+$('input.time[type=radio]:not(:checked)').on('change', function() {
     if (!$(this).attr('checked')) {//only execute if unchecked
+        $('.btn.btn-primary.time').toggleClass('disabled');
         $(this).parent().siblings('.active').children('input[checked]').attr('checked', false); //uncheck siblings
         $(this).parent().siblings().removeClass("active"); //deactivate siblings
         $(this).parent().addClass('active');
@@ -73,8 +82,33 @@ $('input[type=radio]:not(:checked)').on('change', function() {
           success: function(time_price_pairs) {
               /* do something with items here */
               // You will likely want a template so you don't have to format the string by hand
-            renderGraph(time_price_pairs);
+            renderGraph(time_price_pairs, false, true);
           }
        });
     }
 });
+
+$('input.currency[type=radio]').on('change', function() {
+    if (!$(this).attr('checked')) {//only execute if unchecked
+        $(this).parent().siblings('.active').children('input[checked]').attr('checked', false); //uncheck siblings
+        $(this).parent().siblings().removeClass("active"); //deactivate siblings
+        $(this).parent().addClass('active');
+        $(this).attr('checked', true);
+
+
+        var to_currency = $('.btn-group[aria-label=currency').children('.btn.btn-primary.active').children('input').val();
+        rates = convertRates(current_currency, to_currency, rates);
+        var conversion_factor = 1 / rates[current_currency]; // get conversion factor back
+        current_currency = to_currency;
+
+        time_price_pairs = time_price_pairs.map(function(p) {
+            return {time: p['time'], price: p['price'] * conversion_factor};
+        });
+
+
+        renderGraph(time_price_pairs, false, false);
+    }
+});
+
+renderGraph(time_price_pairs, true, true);
+var current_currency = 'USD';
