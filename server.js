@@ -5,7 +5,8 @@ var http = require('http'),
     market = require('./scripts/market-price.js'),
     app = express(),
     request = require('request'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    blockchain_info = require('./scripts/blockchain-info.js');
 
 app.use(logger('dev'));
 app.use(express.static(__dirname + '/public'));
@@ -40,6 +41,9 @@ app.post('/market-price', function(req, res) {
     });
 });
 
+app.get('/blockchain-info', function(req, res) {
+    res.render('blockchain-info');
+});
 
 app.listen(process.env.PORT || 3000, function() {
     console.log('listening on ' + (process.env.PORT || 3000));

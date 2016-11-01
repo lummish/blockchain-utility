@@ -1,0 +1,36 @@
+head
+   // link(rel="stylesheet" href="/assets/css/flipclock.css")
+   link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+   link(rel="stylesheet", href="css/highlight.css")
+   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+body
+    div(class="container-fluid")
+        div(class="clock")
+        div(class="panel panel-default") 
+            div(class="panel-heading") Blockchain Information
+            div(class="panel-body")
+                div(class="row")
+                    div(class="info-title col-xs-4 col-md-2") Unconfirmed Transactions
+                    div(class="col-xs-12 col-md-8 info", id="unconfirmed")
+                div(class="row")
+                    div(class="info-title col-xs-4 col-md-2") Height
+                    div(class="col-xs-12 col-md-8 info", id="height")
+        div(class="panel panel-default") 
+            div(class="panel-heading") Most Recent Block Information
+            div(class="panel-body")
+                div(class="row")
+                    div(class="info-title col-xs-4 col-md-2") Hash
+                    div(class="col-xs-12 col-md-8 info", id="hash")
+                div(class="row")
+                    div(class="info-title col-xs-4 col-md-2") Total (satoshis)
+                    div(class="col-xs-12 col-md-8 info", id="total")
+                div(class="row")
+                    div(class="info-title col-xs-4 col-md-2") Fees (satoshis)
+                    div(class="col-xs-12 col-md-8 info", id="fees")
+        
+
+    
+    //script(src="FlipClock-master/compiled/flipclock.min.js")
+    script(type="text/javascript")
+        //var info = !{JSON.stringify(info)};
+    script(src="blockchain-info.js")

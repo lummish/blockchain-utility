@@ -28,8 +28,6 @@ body
 script(type='text/javascript').
     var time_price_pairs =!{JSON.stringify(timePrices)};
     var exchange_rates_obj = !{JSON.stringify(rates)};
-    console.log(exchange_rates_obj);
     var rates = exchange_rates_obj['rates'];
     rates['USD'] = 1.0; //initialize USD value;
-    console.log(rates);
 script(src="market-price.js")
