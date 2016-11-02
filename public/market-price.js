@@ -13,28 +13,29 @@ $(document).ready(function(){
         d3.selectAll("svg > *").remove();
         
         var vis = d3.select('#visualisation'),
-        WIDTH = 1000,
-        HEIGHT = 500,
-        MARGINS = {
-            top: 20,
-            right: 20,
-            bottom: 20,
-            left: 50
-        },
-        format = d3.time.format("%Y-%m-%dT%H:%M:%S.%LZ"),
-        times = time_price_pairs.map(function(d) { return new Date(format.parse(d.time)); }),
-        prices = time_price_pairs.map(function(d) { return d.price; }),
-        data = d3.zip(times, prices).map(function(d) {return {time: d[0], price:d[1]}}),
-        timeScale = d3.time.scale()
-                    .domain(d3.extent(times))
-                    .range([MARGINS.left, WIDTH - MARGINS.right]),
-        priceScale = d3.scale.linear()
-                     .domain(d3.extent(prices).reverse())
-                     .range([MARGINS.bottom, HEIGHT - MARGINS.top]),
-        xAxis = d3.svg.axis().scale(timeScale),
-        yAxis = d3.svg.axis()
-                  .scale(priceScale)
-                  .orient("left");
+            WIDTH = 1000,
+            HEIGHT = 500,
+            MARGINS = {
+                top: 20,
+                right: 20,
+                bottom: 20,
+                left: 50
+            },
+            format = d3.time.format("%Y-%m-%dT%H:%M:%S.%LZ"),
+            times = time_price_pairs.map(function(d) { return new Date(format.parse(d.time)); }),
+            prices = time_price_pairs.map(function(d) { return d.price; }),
+            data = d3.zip(times, prices).map(function(d) {return {time: d[0], price:d[1]}}),
+            timeScale = d3.time.scale()
+                        .domain(d3.extent(times))
+                        .range([MARGINS.left, WIDTH - MARGINS.right]),
+            priceScale = d3.scale.linear()
+                         .domain(d3.extent(prices).reverse())
+                         .range([MARGINS.bottom, HEIGHT - MARGINS.top]),
+            xAxis = d3.svg.axis().scale(timeScale),
+            yAxis = d3.svg.axis()
+                      .scale(priceScale)
+                      .orient("left"),
+            bisectDate = d3.bisector(function(d) { return d.time; }).left;
 
         vis.append("svg:g")
             .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
@@ -68,6 +69,35 @@ $(document).ready(function(){
             .duration(1500)
             .ease("bounceOut")
             .attr("stroke-dashoffset", 0);
+
+        var focus = vis.append("g")
+                       .attr("class", "focus")
+                       .style("display", "none");
+
+        focus.append("circle")
+             .attr("r", 4.5);
+
+        focus.append("text")
+             .attr("x", 9)
+             .attr("dy", ".35em");
+
+        vis.append("rect")
+           .attr("class", "overlay")
+           .attr("width", WIDTH)
+           .attr("height", HEIGHT)
+           .on("mouseover", function() { focus.style("display", null); })
+           .on("mouseout", function() { focus.style("display", "none"); })
+           .on("mousemove", mousemove);
+
+        function mousemove() {
+          var x0 = timeScale.invert(d3.mouse(this)[0]),
+              i = bisectDate(data, x0, 1),
+              d0 = data[i - 1],
+              d1 = data[i],
+              d = x0 - d0.time > d1.time - x0 ? d1 : d0;
+          focus.attr("transform", "translate(" + timeScale(d.time) + "," + priceScale(d.price) + ")");
+          focus.select("text").text(d.price);
+        }
 
         if (update_data) {
             setTimeout(function(disabled) {

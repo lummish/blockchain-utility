@@ -1,8 +1,8 @@
 head
-   link(rel="stylesheet" href="/css/loader.css")
    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
    link(rel="stylesheet", href="css/highlight.css")
    link(rel="stylesheet", href="css/navbar.css")
+   link(rel="stylesheet" href="/css/loader.css")
    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
 body
     include navbar
@@ -13,23 +13,24 @@ body
             div(class="panel-body")
                 div(class="row")
                     div(class="info-title col-xs-4 col-md-2") Unconfirmed Transactions
-                    div(class="col-xs-12 col-md-8 info", id="unconfirmed")
+                    div(class="info col-xs-12 col-md-8", id="unconfirmed")
                 div(class="row")
                     div(class="info-title col-xs-4 col-md-2") Height
-                    div(class="col-xs-12 col-md-8 info", id="height")
+                    div(class="info col-xs-12 col-md-8", id="height")
         div(class="panel panel-default") 
             div(class="panel-heading") Most Recent Block Information
             div(class="panel-body")
                 div(class="row")
                     div(class="info-title col-xs-4 col-md-2") Hash
-                    div(class="col-xs-12 col-md-8 info", id="hash")
+                    div(class="info col-xs-12 col-md-8", id="hash")
                 div(class="row")
                     div(class="info-title col-xs-4 col-md-2") Total (satoshis)
-                    div(class="col-xs-12 col-md-8 info", id="total")
+                    div(class="info col-xs-12 col-md-8", id="total")
                 div(class="row")
                     div(class="info-title col-xs-4 col-md-2") Fees (satoshis)
-                    div(class="col-xs-12 col-md-8 info", id="fees")
-        
+                    div(class="info col-xs-12 col-md-8", id="fees")
+        div
+            button(class="btn btn-default btn-lrg", id="update") Update Info
 
     
     //script(src="FlipClock-master/compiled/flipclock.min.js")

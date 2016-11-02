@@ -1,5 +1,5 @@
 
-$(document).ready(function() {
+$(document).ready(() => {
     
     $('#info-container').toggle();
     var getInfoForAddress = function(address) {
