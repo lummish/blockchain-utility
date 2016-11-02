@@ -1,11 +1,13 @@
 head
-   // link(rel="stylesheet" href="/assets/css/flipclock.css")
+   link(rel="stylesheet" href="/css/loader.css")
    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
    link(rel="stylesheet", href="css/highlight.css")
+   link(rel="stylesheet", href="css/navbar.css")
    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
 body
-    div(class="container-fluid")
-        div(class="clock")
+    include navbar
+    div(class="container-fluid", id="loader")
+    div(class="container-fluid animate-bottom")
         div(class="panel panel-default") 
             div(class="panel-heading") Blockchain Information
             div(class="panel-body")

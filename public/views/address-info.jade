@@ -1,0 +1,28 @@
+head
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/css/navbar.css")
+    script(src="http://d3js.org/d3.v3.min.js", charset="utf-8")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+    link(rel="stylesheet", href="/css/loader.css")
+body
+    include navbar
+    div(class="container", id='loader')
+    div(class="container-fluid, animate-bottom", id='info-container')
+        h1(class="text-center") Address Information (Testnet Coins)
+        div(class="panel panel-default") 
+            div(class="panel-heading", id="address") 2N4Uqj5sDLjXLxJZAY19EBbkpdP9mojL2fi
+            div(class="panel-body")
+                div(class="row")
+                    div(class="info-title col-xs-4 col-md-2") Total Received
+                    div(class="col-xs-12 col-md-8 info", id="received")
+                div(class="row")
+                    div(class="info-title col-xs-4 col-md-2") Total Sent
+                    div(class="col-xs-12 col-md-8 info", id="sent")
+                div(class="row")
+                    div(class="info-title col-xs-4 col-md-2") Balance
+                    div(class="col-xs-12 col-md-8 info", id="balance")
+                div(class="row")
+                    div(class="info-title col-xs-4 col-md-2") Unconfirmed Balance
+                    div(class="col-xs-12 col-md-8 info", id="unconfirmed")
+script(src="waiting-dialog.js")
+script(src="address-info.js")

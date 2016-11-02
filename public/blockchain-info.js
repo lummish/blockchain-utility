@@ -5,7 +5,13 @@ $(document).ready(function (){
     });
     */
 
+    $('li.stats').toggleClass('active');
+    $('#loader').toggle();
+
     var updateInfo = function(blockchain_info, block_info) {
+        $('#loader').toggle();
+        $('.animate-bottom').toggle();
+        
         var hash = blockchain_info['hash'],
             height = blockchain_info['height'],
             unconfirmed = blockchain_info['unconfirmed_count'],
@@ -65,6 +71,8 @@ $(document).ready(function (){
             url: 'https://api.blockcypher.com/v1/btc/main/blocks/' + block_hash
         }).done(function (info) {
             updateInfo(blockchain_info, info);
+            $('.animate-bottom').toggle();
+            $('#loader').toggle();
         });
      });
 

@@ -45,6 +45,10 @@ app.get('/blockchain-info', function(req, res) {
     res.render('blockchain-info');
 });
 
+app.get('/address-info', function(req, res) {
+    res.render('address-info');
+});
+
 app.listen(process.env.PORT || 3000, function() {
     console.log('listening on ' + (process.env.PORT || 3000));
 });

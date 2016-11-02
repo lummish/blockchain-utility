@@ -1,9 +1,13 @@
 head
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/css/navbar.css")
+    link(rel="stylesheet", href="/css/loader.css")
     script(src="http://d3js.org/d3.v3.min.js", charset="utf-8")
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
 body
-    div(class="container")
+    include navbar
+    div(class="container-fluid", id="loader")
+    div(class="container-fluid animate-bottom")
         form(action="POST", role="form")
             div(class="btn-toolbar", role="toolbar", aria-label="ticker-settings")
                 div(class="btn-group", data-toggle="buttons", role="group", aria-label="time-period")

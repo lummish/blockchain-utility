@@ -1,5 +1,4 @@
-var request = require('request'),
-    d3 = require('d3');
+var request = require('request');
 
 var parameters = {
     timespan: '1weeks',
