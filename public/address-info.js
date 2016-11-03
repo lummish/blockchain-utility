@@ -2,6 +2,7 @@
 $(document).ready(() => {
     
     $('#info-container').toggle();
+    
     var getInfoForAddress = function(address) {
         var url = "https://testnet.blockexplorer.com/api/addr/";
         $.ajax({

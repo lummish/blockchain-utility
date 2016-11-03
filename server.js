@@ -22,16 +22,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/market-price', function(req, res) {
-    market.exchangeRates('USD', {}, function(rates) {       
-        market.historicPrice('BTC', 'USD', 'day', function (time_price_pairs) {
-            res.render('market-price', {timePrices: time_price_pairs, rates: rates}, function(err, html) {
-                if (err) {
-                    console.log(err);
-                }
-                res.send(html);
-            });
-        });       
-    });
+    res.render('market-price');
 });
 
 app.post('/market-price', function(req, res) {
